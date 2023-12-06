@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            width: 290px;
+            height: 349px;
+            margin: 10px;
+        }
+
+        input {
+            padding: 5px;
+            border: 3px solid #003600;
+        }
+
+        button {
+            padding: 5px;
+        }
+    </style>
+    <script src="./script.js"></script>
+</head>
+
+<body>
+    <header>
+        <input type="text" placeholder="Enter album ID" id="albumIdField">
+        <button id="xhrSearch">XHR Search</button>
+        <button id="fetchSearch">Fetch Search</button>
+        <button id="fetchAsyncAwaitSearch">Fetch with Async/Await Search</button>
+    </header>
+    <div id="searchResults"></div>
+</body>
+</html>
