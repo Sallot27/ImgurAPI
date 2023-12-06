@@ -7,27 +7,6 @@ let searchResults = document.getElementById("searchResults");
 
 const clientId = "a4b616e1ef60967"; // Replace with your Imgur client ID
 
-btnXHR.addEventListener("click", function () {
-    // clear previous search results
-    searchResults.innerHTML = "";
-    fetchImgurAPI_UsingXHR(searchText.value);
-});
-
-btnFetch.addEventListener("click", function () {
-    // clear previous search results
-    searchResults.innerHTML = "";
-    fetchImgurAPI_UsingFetch(searchText.value);
-});
-
-btnFetchAsyncAwait.addEventListener("click", function () {
-    // clear previous search results
-    searchResults.innerHTML = "";
-    fetchImgurAPI_UsingFetchAsyncAwait(searchText.value)
-        .catch((e) => {
-            console.error(e);
-        });
-});
-
 function fetchImgurAPI_UsingFetch(keyword) {
     if (!keyword) {
         return;
