@@ -1,15 +1,96 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Imgur Album Viewer</title>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="View Imgur albums with XHR, Fetch, or Async/Await"
+    />
+    <title>Imgur Album Viewer</title>
+    <link rel="stylesheet" href="styles/reset.css" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/theme.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="app-header">
+        <div class="header-top">
+          <img src="assets/icons/icon.jpg" alt="Imgur Logo" class="logo" />
+          <button id="themeToggle" aria-label="Toggle Theme">🌙</button>
+        </div>
+        <h1>
+          <img src="assets/icons/logo.svg" alt="" class="logo" />
+          Imgur Album Viewer
+        </h1>
+        <p class="subtitle">View any public Imgur album by entering its ID</p>
+      </header>
 
-</head>
-<body>
-  <h1>Imgur Album Viewer</h1>
-  <label for="albumIdField">Album ID:</label>
-  <input type="text" id="albumIdField">
-  <button onclick="requestAlbum()">View Album</button>
-  <script src="scripts.js"></script>
+      <main class="app-content">
+        <form class="search-container" id="searchForm" role="search">
+          <div class="input-group">
+            <label for="albumIdField" class="sr-only">Album ID</label>
+            <input
+              type="text"
+              id="albumIdField"
+              placeholder="Enter album ID (e.g., 'a/ABC123')"
+              aria-label="Enter Imgur album ID"
+              required
+            />
+            <button id="searchButton" class="primary-button" type="submit">
+              <span class="button-text">Search</span>
+              <span class="spinner hidden" id="spinner"></span>
+            </button>
+          </div>
 
-</body>
+          <div class="method-selector">
+            <fieldset>
+              <legend>API Method</legend>
+              <div class="radio-group">
+                <label>
+                  <input type="radio" name="apiMethod" value="fetch" checked />
+                  <span>Fetch</span>
+                </label>
+                <label>
+                  <input type="radio" name="apiMethod" value="async" />
+                  <span>Async/Await</span>
+                </label>
+                <label>
+                  <input type="radio" name="apiMethod" value="xhr" />
+                  <span>XHR</span>
+                </label>
+              </div>
+            </fieldset>
+          </div>
+        </form>
+
+        <section id="searchResults" class="results-grid" aria-live="polite">
+          <!-- Dynamically generated album results will go here -->
+        </section>
+
+        <div id="errorContainer" class="error-message hidden">
+          <p>⚠️ Unable to load album. Please check the ID and try again.</p>
+        </div>
+      </main>
+
+      <footer class="app-footer">
+        <p>Uses the Imgur API. Not affiliated with Imgur.</p>
+        <p class="rate-limit">
+          API rate limit: <span id="rateLimit">-</span> remaining
+        </p>
+      </footer>
+    </div>
+
+    <script src="js/app.js" type="module"></script>
+    <script>
+      // Theme toggle
+      const themeToggle = document.getElementById("themeToggle");
+      themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        themeToggle.textContent = document.body.classList.contains("dark-mode")
+          ? "☀️"
+          : "🌙";
+      });
+    </script>
+  </body>
 </html>
