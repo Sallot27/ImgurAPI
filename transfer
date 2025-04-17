@@ -1,0 +1,51 @@
+class PublicVideoDialog {
+  static final Map<String, String> videoUrls = {
+    'en': 'https://youtu.be/L4EAJP241SE',
+    'ar': 'https://youtu.be/yXraYT9bk-M?si=05Mcvh4KQz36syeC'
+  };
+
+  static void show(BuildContext context) {
+    final langCode = Localizations.localeOf(context).languageCode;
+    final videoUrl = videoUrls[langCode] ?? videoUrls['en']!;
+    final videoID = extactYotubeVideoId(videoUrl);
+
+    final YoutubePlayerController controller = YoutubePlayerController(
+      initialVideoId: videoID,
+      flags: YoutubePlayerFlags(
+        autoPlay: true,
+        mute: true,
+        hideControls: true,
+        hideThumbnail: true,
+      ),
+    );
+
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        contentPadding: EdgeInsets.all(20.0),
+        content: SizedBox(
+          width: 200,
+          height: 200,
+          child: YoutubePlayer(
+            controller: controller,
+            showVideoProgressIndicator: false,
+            onEnded: (controller) {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  static String extactYotubeVideoId(String url) {
+    final Uri uri = Uri.parse(url);
+    if (uri.host.contains('youtu.be')) {
+      return uri.pathSegments.first;
+    } else if (uri.queryParameters.containsKey('v')) {
+      return uri.queryParameters['v'] ?? '';
+    } else {
+      return '';
+    }
+  }
+}
